@@ -14,27 +14,72 @@ import { createSpinner } from 'nanospinner'
 // console.log(chalk.bgGreen('Hello'));
 // console.log(chalk.green.underline.italic('Hello'));
 
+let playerName;
 // a function assigned to a constant which returns a promise
 const sleep = (t=2) => new Promise((resolve)=>setTimeout(resolve,t*1000))  // resolve after t amount of time
 
 async function welcome() {
     const rainbowTitle = chalkAnimation.rainbow(
-        'Welcome to the world of JS \n'
+        '\tGame of Riddles\n'
     )
-    
+
     // input in seconds
     await sleep() // don't move forward until this promise is resolved
 
     rainbowTitle.stop();
     
-    console.log(`
-    ${chalk.blue('JS welcomes you')}
-    `);
+    console.log(`\t   ${chalk.blue('Welcome!')}\n`);
 }
 
-await welcome()
+async function askName(){
+    const response = await inquirer.prompt({
+        name:'player_name',
+        type: 'input',
+        message: 'What is your name?',
+        default(){
+            return 'Player'
+        }
+    })
+    playerName = response.player_name
+}
 
+async function handleAnswer(user_ans,ans){
+    const spinner = createSpinner('Checking answer...').start();
+    await sleep();
+    console.log(user_ans);
+    let isCorrect = (user_ans.toLowerCase() === ans);
 
+    if(isCorrect){
+        spinner.success({text: `Congo ${chalk.green(playerName)}`});
+    }else{
+        spinner.error({text:`You lose ${playerName}`});
+        console.log(`Answer - ${chalk.green(ans)}`);
+        process.exit(1);
+    }
+}
+
+async function riddle1(){
+    const answer = await inquirer.prompt({
+        name: 'riddle',
+        type: 'input',
+        message :'What is always in front of you but can\'t be seen?'
+    })
+    await handleAnswer(answer['riddle'],"future")
+}
+
+async function winner(){
+    console.clear();
+    const msg = `Congrats ${playerName}! \n\n\t$ 1 , 0 0 0 , 0 0 0\n`;
+    figlet(msg,(err,data)=>{
+        console.log(`\n\t${gradient.pastel.multiline(msg)}`);
+    })
+    await sleep();
+}
+
+await welcome();
+await askName();
+await riddle1();
+await winner();
 
 
 
