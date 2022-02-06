@@ -16,7 +16,6 @@ dotenv.config() // check for .env file in local folder
 const API_KEY = process.env.API_KEY;
 
 
-
 let playerName;
 // a function assigned to a constant which returns a promise
 const sleep = (t=2) => new Promise((resolve)=>setTimeout(resolve,t*1000))  // resolve after t amount of time
