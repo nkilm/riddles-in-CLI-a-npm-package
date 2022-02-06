@@ -10,7 +10,6 @@ import figlet from 'figlet'
 import { createSpinner } from 'nanospinner'
 
 
-
 // console.log(chalk.bgGreen('Hello'));
 // console.log(chalk.green.underline.italic('Hello'));
 
