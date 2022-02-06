@@ -8,7 +8,12 @@ import gradient from 'gradient-string'
 import chalkAnimation from 'chalk-animation' // built on top of chalk 
 import figlet from 'figlet'
 import { createSpinner } from 'nanospinner'
+import dotenv from 'dotenv'
 
+const URL = "'https://riddles.p.rapidapi.com/riddle/random";
+
+dotenv.config() // check for .env file in local folder
+const API_KEY = process.env.API_KEY;
 
 // console.log(chalk.bgGreen('Hello'));
 // console.log(chalk.green.underline.italic('Hello'));
@@ -75,10 +80,10 @@ async function winner(){
     await sleep();
 }
 
-await welcome();
-await askName();
-await riddle1();
-await winner();
+// await welcome();
+// await askName();
+// await riddle1();
+// await winner();
 
 
 
