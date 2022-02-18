@@ -1,15 +1,15 @@
 {
   "name": "riddles-cli",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "description": "simple npm package to get Riddles in Command-Line-Interface",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": "index.js",
-  "keywords": [],
-  "author": "",
+  "keywords": ["riddles","cli","npm","riddles-cli","Riddles","command line interface","chalk","jsonfile","nanospinner","figlet","colorful text"],
+  "author": "Nikhil Mohite",
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.0.0",
