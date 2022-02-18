@@ -5,6 +5,6 @@ Bored? Checkout these **Riddles** to refresh your mood😄
 
 ## Installation
 ```bash
-   npx riddles
+   npx riddles-cli
 ```
     

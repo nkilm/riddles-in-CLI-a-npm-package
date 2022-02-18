@@ -1,6 +1,6 @@
 {
-  "name": "riddles-in-cli",
-  "version": "1.0.0",
+  "name": "riddles-cli",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "type": "module",
