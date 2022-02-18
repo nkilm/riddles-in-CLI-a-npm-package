@@ -39,6 +39,7 @@ async function askName() {
         }
     })
     playerName = response.player_name
+    console.log(chalk.red("\nType '-1' to Exit\n"));
 }
 
 async function riddle() {
