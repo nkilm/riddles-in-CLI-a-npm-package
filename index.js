@@ -14,7 +14,7 @@ let playerName;
 // a function assigned to a constant which returns a promise
 const sleep = (t = 2) => new Promise((resolve) => setTimeout(resolve, t * 1000))  // resolve after t amount of time
 
-const data = await jsonfile.readFile("./data/collection-of-riddles-with-answers.json");
+const data = await jsonfile.readFile("data//collection-of-riddles-with-answers.json");
 
 async function welcome() {
     const rainbowTitle = chalkAnimation.rainbow(
