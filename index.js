@@ -1,5 +1,4 @@
 #!/usr/bin/env node // this line tells the system to use the node version installed on the system
-
 // shebang 
 
 import chalk from 'chalk'
@@ -8,16 +7,18 @@ import gradient from 'gradient-string'
 import chalkAnimation from 'chalk-animation' // built on top of chalk 
 import figlet from 'figlet'
 import { createSpinner } from 'nanospinner'
+import jsonfile from 'jsonfile'
 
-console.log(riddles);
 
 let playerName;
 // a function assigned to a constant which returns a promise
 const sleep = (t = 2) => new Promise((resolve) => setTimeout(resolve, t * 1000))  // resolve after t amount of time
 
+const data = await jsonfile.readFile("./data/collection-of-riddles-with-answers.json");
+
 async function welcome() {
     const rainbowTitle = chalkAnimation.rainbow(
-        '\tGame of Riddles\n'
+        '\n\n\tGame of Riddles\n'
     )
 
     // input in seconds
@@ -40,43 +41,53 @@ async function askName() {
     playerName = response.player_name
 }
 
-async function handleAnswer(user_ans, ans) {
-    const spinner = createSpinner('Checking answer...').start();
-    await sleep();
-    console.log(user_ans);
-    let isCorrect = (user_ans.toLowerCase() === ans);
-
-    if (isCorrect) {
-        spinner.success({ text: `Congo ${chalk.green(playerName)}` });
-    } else {
-        spinner.error({ text: `You lose ${playerName}` });
-        console.log(`Answer - ${chalk.green(ans)}`);
-        process.exit(1);
-    }
-}
-
-async function riddle1() {
+async function riddle() {
+    const riddle = data[Math.floor(Math.random() * 499)];
     const answer = await inquirer.prompt({
         name: 'riddle',
         type: 'input',
-        message: 'What is always in front of you but can\'t be seen?'
+        message: riddle['riddle']
     })
-    await handleAnswer(answer['riddle'], "future")
+    handleAnswer(answer['riddle'], riddle['answer']);
 }
 
-async function winner() {
-    console.clear();
-    const msg = `Congrats ${playerName}! \n\n\t$ 1 , 0 0 0 , 0 0 0\n`;
-    figlet(msg, (err, data) => {
+async function handleAnswer(user_ans, ans) {
+    if(user_ans==="-1") {
+        await program_end();
+    }
+    const spinner = createSpinner('Checking answer...\n').start();
+    // await sleep();
+    let isCorrect = (user_ans === ans);
+
+    if (isCorrect) {
+        spinner.success({ text: `Congo ${chalk.green(playerName)}🥂` });
+    } else {
+        spinner.error({ text: `Wrong!` });
+        console.log(`Answer - ${chalk.green(ans)}`);
+    }
+}
+
+async function loop(){
+    while(true){
+        await riddle();
+    }
+}
+
+async function program_end() {
+    const msg = `Byee ${playerName}! Do visit again\n`;
+    await figlet(msg, (err, data) => {
+        console.clear();
         console.log(`\n\t${gradient.pastel.multiline(msg)}`);
     })
     await sleep();
+    await process.exit(1);
 }
 
-// await welcome();
-// await askName();
-// await riddle1();
-// await winner();
+console.clear();
+await welcome();
+await askName();
+await loop();
+await program_end();
 
 
 
