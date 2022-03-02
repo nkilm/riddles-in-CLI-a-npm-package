@@ -1,10 +1,11 @@
 {
-  "name": "riddles-cli",
-  "version": "1.0.8",
+  "name": "riddle-cli",
+  "version": "1.0.0",
   "description": "simple npm package to get Riddles in Command-Line-Interface",
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "test": "node .",
     "start": "node ."
   },
   "keywords": ["riddles","cli","npm","riddles-cli","Riddles","command line interface","chalk","jsonfile","nanospinner","figlet","colorful text"],
